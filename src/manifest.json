@@ -1,0 +1,15 @@
+{
+  "name": "My Kitchen",
+  "short_name": "Kitchen",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "icons": [
+    {
+      "src": "/icons/kitchen-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
