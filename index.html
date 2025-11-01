@@ -4,9 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#16a34a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="My Kitchen" />
   <!-- Use paths relative to base to avoid 404s on subpath deployments (e.g., GitHub Pages) -->
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/kitchen-icon.svg" />
+  <!-- iOS requires explicit apple-touch-icon; it does not use the web manifest for icons -->
+  <link rel="apple-touch-icon" href="/icons/kitchen-icon.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/kitchen-icon.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/kitchen-icon.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/kitchen-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/kitchen-icon.png" />
     <title>My Kitchen</title>
   </head>
   <body>
