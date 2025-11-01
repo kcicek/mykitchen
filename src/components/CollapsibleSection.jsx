@@ -1,4 +1,5 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useContext, useEffect, useId, useMemo, useState } from 'react';
+import { useAccordion } from './AccordionGroup';
 
 /**
  * CollapsibleSection
@@ -12,28 +13,35 @@ export default function CollapsibleSection({
   defaultOpen = false,
   persistKey,
   className = '',
+  id: explicitId,
 }) {
   const reactId = useId();
   const contentId = `collapsible-${reactId}`;
-  const [open, setOpen] = useState(defaultOpen);
+  const accordion = useAccordion();
+  const myId = useMemo(() => explicitId || persistKey || `sec-${reactId}`, [explicitId, persistKey, reactId]);
+  const isInAccordion = !!accordion;
+  const [selfOpen, setSelfOpen] = useState(defaultOpen);
+  const open = isInAccordion ? accordion.activeId === myId : selfOpen;
 
   // Load persisted state if a key is provided
   useEffect(() => {
+    if (isInAccordion) return; // Accordion controls state; skip persistence
     if (!persistKey) return;
     try {
       const saved = localStorage.getItem(persistKey);
-      if (saved !== null) setOpen(saved === '1');
+      if (saved !== null) setSelfOpen(saved === '1');
     } catch {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [persistKey]);
+  }, [persistKey, isInAccordion]);
 
   // Persist on change
   useEffect(() => {
+    if (isInAccordion) return; // Accordion controls state; skip persistence
     if (!persistKey) return;
     try {
       localStorage.setItem(persistKey, open ? '1' : '0');
     } catch {}
-  }, [open, persistKey]);
+  }, [open, persistKey, isInAccordion]);
 
   const headerBase = 'w-full flex items-center justify-between gap-3 text-left';
   const headerPad = open ? 'px-3 py-3 md:px-4 md:py-3' : 'px-3 py-2 md:px-4 md:py-3';
@@ -46,7 +54,18 @@ export default function CollapsibleSection({
         className={`${headerBase} ${headerPad}`}
         aria-expanded={open}
         aria-controls={contentId}
-        onClick={() => setOpen(o => !o)}
+        onClick={() => {
+          if (isInAccordion) {
+            const { setActiveId, allowCollapse } = accordion;
+            if (open && allowCollapse) {
+              setActiveId(null);
+            } else {
+              setActiveId(myId);
+            }
+          } else {
+            setSelfOpen(o => !o);
+          }
+        }}
       >
         <span className={`${titleSize} font-semibold select-none`}>{title}</span>
         <svg

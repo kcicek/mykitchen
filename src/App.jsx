@@ -5,6 +5,7 @@ import RecipeList from './components/RecipeList';
 import GroceryList from './components/GroceryList';
 import CookModal from './components/CookModal';
 import CollapsibleSection from './components/CollapsibleSection';
+import { AccordionGroup } from './components/AccordionGroup';
 import WeeklyMenu from './components/WeeklyMenu';
 import { IconCalendar, IconCart } from './components/icons';
 import useStock from './hooks/useStock';
@@ -141,8 +142,9 @@ export default function App() {
         <img src={appIcon} alt="MyKitchen" className="h-8 w-8 rounded" loading="eager" />
         <h1 className="text-xl md:text-2xl font-semibold tracking-tight">MyKitchen</h1>
       </header>
-      <div className="max-w-6xl mx-auto flex flex-col gap-0 lg:grid lg:grid-cols-3 lg:gap-6">
-      <CollapsibleSection className="lg:col-span-1" title="🍱 Malzeme Stoğu" persistKey="sec-stock" defaultOpen={false}>
+  <div className="max-w-6xl mx-auto flex flex-col gap-0 lg:grid lg:grid-cols-3 lg:gap-6">
+  <AccordionGroup>
+  <CollapsibleSection className="lg:col-span-1" title="🍱 Malzeme Stoğu" persistKey="sec-stock" defaultOpen={false}>
         <div className="mb-3 flex items-center gap-4 text-sm">
           <label className="inline-flex items-center gap-2 select-none">
             <input
@@ -164,9 +166,9 @@ export default function App() {
           </label>
         </div>
         <IngredientList ingredients={filteredIngredients} stocks={stocks} onToggle={toggleIngredient} />
-      </CollapsibleSection>
+  </CollapsibleSection>
 
-      <CollapsibleSection className="lg:col-span-2" title="👨‍🍳 Önerilen Tarifler" persistKey="sec-suggestions" defaultOpen={false}>
+  <CollapsibleSection className="lg:col-span-2" title="👨‍🍳 Önerilen Tarifler" persistKey="sec-suggestions" defaultOpen={false}>
         <RecipeList recipes={suggestions} stocks={stocks} onCook={onCook} />
         {suggestionLimit < allSuggestions.length && (
           <div className="mt-3 flex justify-center">
@@ -241,7 +243,9 @@ export default function App() {
           emptyMessage={onlyEssential ? 'Elzem eksik yok 🎉' : 'Eksik yok. Afiyet olsun!'}
           onMarkBought={(name) => setIngredient(name, true)}
         />
-      </CollapsibleSection>
+  </CollapsibleSection>
+
+  </AccordionGroup>
 
       <CookModal
         isOpen={isModalOpen}
