@@ -1,9 +1,12 @@
-const CACHE_NAME = 'my-kitchen-cache-v1';
+const CACHE_NAME = 'my-kitchen-cache-v2';
+// Resolve assets relative to the service worker scope so it works under subpaths (e.g., GitHub Pages)
+const SCOPE = self.registration?.scope || '/';
+const toURL = (p) => new URL(p, SCOPE).toString();
 const CORE_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icons/kitchen-icon.svg',
+  toURL('./'),
+  toURL('./index.html'),
+  toURL('./manifest.json'),
+  toURL('./icons/kitchen-icon.svg'),
 ];
 
 self.addEventListener('install', (event) => {
@@ -28,7 +31,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
           return res;
         })
-        .catch(() => caches.match(req).then((res) => res || caches.match('/index.html')))
+  .catch(() => caches.match(req).then((res) => res || caches.match(toURL('./index.html'))))
     );
   } else {
     event.respondWith(

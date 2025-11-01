@@ -10,6 +10,7 @@ import { IconCalendar, IconCart } from './components/icons';
 import useStock from './hooks/useStock';
 import { getGroceryList, bestRecipeSuggestions, missingIngredients } from './utils/suggestionEngine';
 import './index.css';
+import appIcon from './assets/icons/kitchen-icon.svg';
 
 export default function App() {
   const { stocks, toggleIngredient, setIngredient, setMultiple } = useStock();
@@ -137,7 +138,7 @@ export default function App() {
     <div className="min-h-screen p-3 md:p-6 lg:p-8">
       <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 rounded-full mb-4 opacity-80" />
       <header className="max-w-6xl mx-auto mb-4 flex items-center gap-3">
-        <img src="/icons/kitchen-icon.svg" alt="MyKitchen" className="h-8 w-8 rounded" loading="eager" />
+        <img src={appIcon} alt="MyKitchen" className="h-8 w-8 rounded" loading="eager" />
         <h1 className="text-xl md:text-2xl font-semibold tracking-tight">MyKitchen</h1>
       </header>
       <div className="max-w-6xl mx-auto flex flex-col gap-0 lg:grid lg:grid-cols-3 lg:gap-6">

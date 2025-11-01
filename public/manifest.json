@@ -7,7 +7,7 @@
   "theme_color": "#16a34a",
   "icons": [
     {
-      "src": "/icons/kitchen-icon.svg",
+      "src": "icons/kitchen-icon.svg",
       "sizes": "512x512",
       "type": "image/svg+xml"
     }

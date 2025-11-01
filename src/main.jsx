@@ -9,10 +9,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 )
 
-// Register service worker for PWA
+// Register service worker for PWA (respect base path)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/serviceWorker.js').catch((err) => {
+    const swUrl = `${import.meta.env.BASE_URL}serviceWorker.js`;
+    navigator.serviceWorker.register(swUrl).catch((err) => {
       console.warn('Service worker registration failed:', err);
     });
   });
